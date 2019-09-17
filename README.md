@@ -1,22 +1,4 @@
 # novel-reader
 
-> An electron-vue project
+> 基于electron开发的PC端阅读器，搜索源为网易云阅读，提供阅读和追书功能，仅供个人使用，侵删。
 
-#### Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:9080
-npm run dev
-
-# build electron application for production
-npm run build
-
-
-```
-
----
-
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
