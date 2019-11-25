@@ -71,13 +71,7 @@
         />
       </div>
     </Modal>
-    <Drawer
-      title="收藏"
-      :closable="true"
-      v-model="isShowCollectNovel"
-      width="100"
-      style="z-index: 9902"
-    >
+    <Drawer title="收藏" :closable="true" v-model="isShowCollectNovel" width="100">
       <div
         v-for="(item, key) of novelCollectedList"
         class="novelItem"
@@ -90,7 +84,6 @@
       </div>
     </Drawer>
     <Drawer
-      style="z-index: 9901"
       :title="novelChapter"
       :closable="true"
       v-model="isShowNovelContent"
@@ -98,7 +91,14 @@
       @on-close="closeNovelContent"
       placement="left"
     >
-      <div style="text-indent:25px;">
+      <div class="fr">
+        <RadioGroup v-model="fontSize" type="button" size="small">
+          <Radio label="小"></Radio>
+          <Radio label="中"></Radio>
+          <Radio label="大"></Radio>
+        </RadioGroup>
+      </div>
+      <div style="text-indent:25px;margin-top:35px;" :class="getContentFontSize(fontSize)">
         <p style="margin-bottom: 5px;" v-for="(item, key) of novelContentRows" :key="key">{{item}}</p>
       </div>
     </Drawer>
@@ -131,7 +131,8 @@ export default {
       novelItem: {},
       collectIconClass: "btnCollectIcon",
       collectIconSize: 17,
-      isCollect: false
+      isCollect: false,
+      fontSize: "小"
     };
   },
   name: "landing-page",
@@ -148,6 +149,18 @@ export default {
     this.checkNew();
   },
   methods: {
+    getContentFontSize(fontSize) {
+      switch (fontSize) {
+        case "小":
+          return "smallFont";
+        case "中":
+          return "normalFont";
+        case "大":
+          return "largeFont";
+        default:
+          return "smallFont";
+      }
+    },
     checkNew() {
       var that = this;
       var task = function(nid) {
@@ -416,7 +429,10 @@ export default {
           var htmlDoc = parser.parseFromString(novelContent, "text/html");
           var lis = htmlDoc.querySelectorAll("p");
           for (var i = 0; i < lis.length; i++) {
-            that.novelContentRows.push(lis[i].innerHTML);
+            debugger;
+            that.novelContentRows.push(
+              lis[i].innerHTML.replace(/<[^>]*>|<\/[^>]*>/gm, "")
+            );
           }
         }
       });
@@ -506,6 +522,10 @@ export default {
   transition: 0.3s;
 }
 
+.fr {
+  float: right;
+}
+
 .btnMin {
   transition: 0.3s;
 }
@@ -520,6 +540,18 @@ export default {
 
 body {
   font-family: "Source Sans Pro", sans-serif;
+}
+
+.smallFont {
+  font-size: 15px;
+}
+
+.normalFont {
+  font-size: 20px;
+}
+
+.largeFont {
+  font-size: 25px;
 }
 
 #wrapper {
