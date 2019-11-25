@@ -2,7 +2,7 @@
   "name": "novel-reader",
   "productName": "novel-reader",
   "version": "0.0.1",
-  "author": "康志兴",
+  "author": "kangzhixing",
   "description": "An electron-vue project",
   "license": null,
   "main": "./dist/electron/main.js",
